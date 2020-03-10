@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Router, Route, Switch } from "react-router-dom";
+import logo from "./logo.svg";
+import "./App.css";
+import Loading from "./components/Loading";
+import Home from "./components/Home";
+import PrivateRoute from "./components/PrivateRoute";
+import Profile from "./components/Profile";
+import { useAuth0 } from "./react-auth0-spa";
+import history from "./utils/history";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+	const { loading } = useAuth0;
+	if (loading) {
+		return <Loading />;
+	}
+	return (
+		<Router history={history}>
+			<div className="App">
+				<Switch>
+					<Route path="/" exact component={Home} />
+					<PrivateRoute path="/profile" component={Profile} />
+				</Switch>
+			</div>
+		</Router>
+	);
+};
 
 export default App;
