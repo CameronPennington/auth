@@ -6,6 +6,7 @@ import Loading from "./components/Loading";
 import Home from "./components/Home";
 import PrivateRoute from "./components/PrivateRoute";
 import Profile from "./components/Profile";
+import NavBar from "./components/NavBar";
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
 
@@ -17,6 +18,7 @@ const App = () => {
 	return (
 		<Router history={history}>
 			<div className="App">
+				<NavBar />
 				<Switch>
 					<Route path="/" exact component={Home} />
 					<PrivateRoute path="/profile" component={Profile} />
